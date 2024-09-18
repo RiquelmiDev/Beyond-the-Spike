@@ -1,0 +1,69 @@
+@import "mixins";
+
+@media (max-width: 1540px){
+    main{
+        .personagem{
+            .splide__track{
+                ul.splide__list {
+                    max-width: 1440px;
+                    li{
+                        .personagemImg{
+                            width: 1050px;
+                        }
+                    }
+                }  
+            } 
+        
+        }
+    }   
+}
+
+
+@media (max-width: 600px){
+    main{
+
+        height: auto;
+        
+        flex-direction: column;
+        gap: 50px;
+
+        .conteudo-text{
+         width: 300px;
+         order: 2;
+
+            h1{
+                font-size: 50px;
+                text-align: center;
+            }
+
+            h2{
+                font-size: 15px;
+                text-align: center;
+            }
+
+            p{
+                font-size: 20px;
+                margin-top: 1rem;
+                text-align: center;
+            }
+        }
+
+        .personagem{
+            order: 1;
+            img{
+                width: 300px;
+                background-size: 300px;
+            }
+        }
+
+        .habilidades{
+            order: 3;
+            
+            @include flex-box(flex, center, center);
+    
+            .cards-habilidades, img{
+                @include dimensoes(80px, 80px);
+            }
+        }
+    }
+}

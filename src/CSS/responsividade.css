@@ -1,0 +1,12 @@
+@media (max-width: 1540px) { main .personagem .splide__track ul.splide__list { max-width: 1440px; }
+  main .personagem .splide__track ul.splide__list li .personagemImg { width: 1050px; } }
+
+@media (max-width: 600px) { main { height: auto; flex-direction: column; gap: 50px; }
+  main .conteudo-text { width: 300px; order: 2; }
+  main .conteudo-text h1 { font-size: 50px; text-align: center; }
+  main .conteudo-text h2 { font-size: 15px; text-align: center; }
+  main .conteudo-text p { font-size: 20px; margin-top: 1rem; text-align: center; }
+  main .personagem { order: 1; }
+  main .personagem img { width: 300px; background-size: 300px; }
+  main .habilidades { order: 3; display: flex; justify-content: center; align-items: center; }
+  main .habilidades .cards-habilidades, main .habilidades img { height: 80px; width: 80px; } }

@@ -1,0 +1,22 @@
+@mixin dimensoes($altura,$largura){
+    height: $altura;
+    width: $largura;
+}
+
+@mixin container($altura: 100vh, $largura: 100vw, $espacamento-interno: 20px){
+    width: $largura;
+    height: $altura;
+    padding: $espacamento-interno 80px;
+}
+
+@mixin flex-box ($display, $justificacao, $alinhamento) {
+    display: $display;
+    justify-content: $justificacao;
+    align-items: $alinhamento;
+}
+
+@mixin bg-images($url,$size: contain,$repeat: no-repeat){
+    background-image: url("#{$url}");
+    background-repeat: no-repeat;
+    background-size: contain;
+}

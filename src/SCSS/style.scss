@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+$bg-main-color: #00171f;
+$vermelho: #fa4454;
+
+@import "mixins";
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto Mono", monospace;
+    list-style: none;
+}
+
+
+
+main{
+
+    @include container;
+    @include flex-box(flex, space-between, center);
+    background-color: $bg-main-color;
+    position: relative;
+    overflow: hidden;
+    gap: 800px;
+
+    .conteudo-text{
+        position: relative;
+        z-index: 2;
+        width: 500px;
+
+        h1{
+            font-size: 70px;
+        }
+
+        p{
+            font-size: 25px;
+            margin-top: 3rem;
+            
+        }
+    }
+
+    .personagem{
+        position: absolute; //como esta absoluto ficar no inicio junto com o primeiro elemento
+        left: 50%;
+        transform: translateX(-50%); /* Move a section dos personagens para o centro */
+
+        .splide__arrows { //esconde as flechas de previus e prox
+            display: none;
+        }
+
+        .splide__track{
+            ul.splide__list {
+                max-width: 1920px;
+                li{
+                    .personagemImg{
+                        width: 1350px;
+                    }
+                    .backgroundPersonagem{
+                        @include bg-images("https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/background.png");
+                        background-position: right; 
+                    }
+                }
+            }  
+        } 
+          .splide{
+              position: absolute;
+          }
+          
+          .splide__slide {
+              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+          }
+    
+    }
+
+    .habilidades{
+        max-height: 600px;
+        @include flex-box(column, center, center);
+        background-color: $vermelho;
+        position: relative;
+        z-index: 2;
+
+        .cards-habilidades, img{
+            @include dimensoes(100px, 100px);
+        }
+        
+        .cards-habilidades{
+            img{
+                filter: opacity(70%);
+                &:hover{
+                    transition: all 0.2s ease-out;
+                    transform: scale(1.2);
+                    filter: opacity(100%);
+                }
+            }
+        }
+    }
+}
+
+footer{
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+
+    .thumbnails {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      
+      .thumbnail {
+        width: 100px;
+        height: 100px;
+        margin: 0 0.2rem;
+        cursor: pointer;
+        opacity: 0.3;
+      }
+      
+      .thumbnail.is-active {
+        opacity: 1;
+        border: 2px solid #fa4454;
+      }
+      
+      .thumbnail img {
+        width: 100%;
+        height: auto;
+      }
+      .thumbnail {
+        opacity: 0.5; 
+      }
+      
+      .thumbnail.is-active {
+        opacity: 1;  
+      }
+}
+
