@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Beyond the Spike</title>
     <link rel="stylesheet" href="src/CSS/style.css">
     <link rel="stylesheet" href="src/CSS/responsividade.css">
     <link href="
@@ -21,12 +21,7 @@
         <section id="main-carousel" class="splide personagem" aria-label="Gallery">
             <div class="splide__track">
                 <ul class="splide__list" id="listaPersonagens">
-                  <!-- <li class="splide__slide">       
-                    <img class="personagemImg backgroundPersonagem" id="personagemImgJett" src="https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/fullportrait.png" alt="Imagem do Personagem Jett" title="Personagem Jett do jogo Valorant"></li>
-                  <li class="splide__slide">       
-                      <img class="personagemImg backgroundPersonagem" id="personagemImgJett" src="https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/fullportrait.png" alt="Imagem do Personagem Jett" title="Personagem Jett do jogo Valorant">
-                    </li> -->
-                 
+                  <!-- Imagens dos personagens iseridos dinamicamente aqui via insereDados.js-->
                 </ul>
             </div>
         </section>
@@ -42,90 +37,12 @@
 
     <footer class="selecaoAgente">
         <ul id="thumbnails" class="thumbnails">
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png" alt="Icone selecionavel do personagem OMEN">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png" alt="Thumbnail 2">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png" alt="Icone selecionavel do personagem OMEN">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png" alt="Thumbnail 2">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png" alt="Icone selecionavel do personagem OMEN">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png" alt="Thumbnail 2">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png" alt="Icone selecionavel do personagem OMEN">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png" alt="Thumbnail 2">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png" alt="Icone selecionavel do personagem OMEN">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png" alt="Thumbnail 2">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png" alt="Icone selecionavel do personagem OMEN">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png" alt="Thumbnail 2">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png" alt="Thumbnail 3">
-            </li>
-            <li class="thumbnail">
-              <img src="https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png" alt="Thumbnail 4">
-            </li>
-            
-          </ul>
+          <!-- Icones dos personagens iseridos dinamicamente aqui via insereDados.js -->
+        </ul>
     </footer>
     
     <script type="module" src="src/JS/insereDados.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <script src="src/JS/carrousel.js"></script>
+
 </body>
 </html>
