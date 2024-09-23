@@ -20,16 +20,9 @@ apiResponse().then(agentes => {
                 habilidades: agente.abilities
             })
         });
-        
         criarElementosDosPersonagens(dataAgentes);
     }
 });
-
-const descricao = document.getElementById("descricaoPersonagens");
-const imgPersonagem = document.getElementById("personagemImg");
-const nomePersonagem = document.getElementById("nomePersonagem");
-const rolePersonagem = document.getElementById("rolePersonagem");
-
 
 
 function criarElementosDosPersonagens (dataAgentes) {
@@ -38,13 +31,15 @@ function criarElementosDosPersonagens (dataAgentes) {
     adicionarImagensPersonagensAoCarrousel(dataAgentes);
     
     adicionarIconesPersonagens(dataAgentes);
-    /*  nomePersonagem.textContent = dataAgentes[24].nomeAgente;
-    descricao.textContent = dataAgentes[24].descricaoAgente;
-    imgPersonagem.src = dataAgentes[24].imgAgente; */
 
-    //Incia o cod responsavel pelo carrousel
+     // Adiciona um pequeno atraso para garantir que o DOM esteja atualizado
+     setTimeout(() => {
+        //Incia o cod responsavel pelo carrousel
+        initSplide();
+        carregarInfoPersonagem(dataAgentes);
+    }, 100); // 100ms de atraso, ajuste conforme necessário
+    
     initSplide();
-
 }
 
 
@@ -91,7 +86,7 @@ function adicionarIconesPersonagens(dataAgentes){
 
     dataAgentes.forEach(personagemAtual => {
         output += 
-        `<li class="thumbnail">
+        `<li class="thumbnail" id="${personagemAtual.idAgente}">
               <img src="${personagemAtual.displayIcon}" alt="Icone selecionavel do personagem ${personagemAtual.nomeAgente} title="Icone selecionavel personagem ${personagemAtual.nomeAgente}">
         </li>`;
     });
@@ -104,6 +99,52 @@ function adicionarIconesPersonagens(dataAgentes){
    while (tempContainer.firstChild) {
     listaDeIconesPersonagens.appendChild(tempContainer.firstChild);
    }
+}
+
+function carregarInfoPersonagem(dataAgentes){
+    //chama a funcao que insere os conteudos do personagem nos elementos e manda inicialmente o id do primeiro personagem sendo 0
+    inserirConteudoPersonagens(dataAgentes,0)
+
+    var splide = new Splide('#main-carousel', {
+        pagination: false,
+    });
+
+    splide.on('mounted', function () {
+        let icones = document.getElementsByClassName('thumbnail');
+
+        for (let i = 0; i < icones.length; i++) {
+            initThumbnail(icones[i]);
+        }
+
+        function initThumbnail(icone) {
+            //evento de click em cada icone dos personagens que faz inserir o conteudo deles nos elemento visuais
+            icone.addEventListener('click', function () {
+                let idPersonagem = this.id; //Pegue o id desse icone que foi clicado
+                inserirConteudoPersonagens(dataAgentes,idPersonagem);
+            });
+        }
+        //evento de move que observa quando o user passa o slide para o proximo personagem ou o anterior inserindo assim o conteudo desse personagem
+        splide.on('move', function () {
+            let icone = icones[splide.index]; //guarda o elemento atual do slide
+            console.log(icone)
+            if (icone) {
+                let idPersonagem = splide.index;
+                inserirConteudoPersonagens(dataAgentes,idPersonagem);
+            }
+        });
+    });
+
+    splide.mount();
+}
+
+function inserirConteudoPersonagens(dataAgentes,idPersonagem){
+    const descricao = document.getElementById("descricaoPersonagens");
+    const nomePersonagem = document.getElementById("nomePersonagem");
+    const rolePersonagem = document.getElementById("rolePersonagem");
+
+    nomePersonagem.textContent = dataAgentes[idPersonagem].nomeAgente;
+    descricao.textContent = dataAgentes[idPersonagem].descricaoAgente;
+    rolePersonagem.textContent = dataAgentes[idPersonagem].roleAgente.displayName;
 }
 
 
