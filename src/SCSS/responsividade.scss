@@ -1,14 +1,15 @@
 @import "mixins";
 
-@media (max-width: 1540px){
+@media (max-width: 1550px){
     main{
+        gap: 100px;
         .personagem{
             .splide__track{
                 ul.splide__list {
                     max-width: 1440px;
                     li{
                         .personagemImg{
-                            width: 1050px;
+                            width: 1250px;
                         }
                     }
                 }  
@@ -19,11 +20,11 @@
         .conteudo-text{
             position: relative;
             z-index: 2;
-            width: 500px;
+            width: 400px;
     
             h1{
                 font-size: 70px;
-                font-weight: bold;
+                width: 20rem;
             }
     
             p{
@@ -32,25 +33,82 @@
                 
             }
         }
-    }   
+
+        .habilidades{
+            max-height: 400px;
+            @include flex-box(column, center, center);
+            position: relative;
+            z-index: 2;
+    
+            .cards-habilidades, img{
+                @include dimensoes(70px, 70px);
+            }
+        }
+    }
+    
+    footer{
+        @include flex-box(flex, center,auto);
+        
+        .thumbnails {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+          
+          .thumbnail {
+            width: 75px;
+            height: 75px;
+            margin: 0 5px 5px 0;
+            cursor: pointer;
+            opacity: 0.3;
+          }
+          
+          .thumbnail.is-active {
+            opacity: 1;
+            border: 2px solid #fa4454;
+          }
+          
+          .thumbnail img {
+            width: 80px;
+            height: 80px;
+            padding-bottom: 16px;
+          }
+    }
 }
 
 
 @media (max-width: 600px){
     main{
-
-        height: auto;
-        
+        @include flex-box(flex, auto, center);
+        height: 120vh;  
         flex-direction: column;
-        gap: 50px;
+        gap: 0;
+        /* background-color: blue; */
 
         .conteudo-text{
          width: 300px;
          order: 2;
+         position: relative;
+         @include flex-box(flex,center,center);
+         flex-direction: column;
 
             h1{
+                width: 100%;
                 font-size: 50px;
                 text-align: center;
+            }
+
+            span{
+                position: absolute;
+                transform: rotate(-0.25turn);
+                bottom: 650px; /* Gambiarra ate pensar em algo melhor para por apenas o h1 la em cima */
+                font-size: xx-large;
+                font-weight: bold;
+                left: -20%;
             }
 
             h2{
@@ -66,10 +124,19 @@
         }
 
         .personagem{
+            position: relative;
+            left: 0;
+            transform: none;
             order: 1;
-            img{
-                width: 300px;
-                background-size: 300px;
+            .splide__track{
+                ul.splide__list {
+                    max-width: 1920px;
+                    li{
+                        .personagemImg{
+                            width: 600px;
+                        }
+                    }
+                }    
             }
         }
 
@@ -83,44 +150,20 @@
             }
         }
     }
+
+    footer{
+        @include flex-box(flex, center,auto);
+        display: none;
+        .thumbnails {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+    }
 }
 
-footer{
-    width: 100%;
 
-    .thumbnails {
-        width: 70%;
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        margin-top: 1rem;
-        flex-wrap: wrap;
-        gap: 10px;
-        background-color: red;
-      }
-      
-      .thumbnail {
-        width: 70px;
-        height: 70px;
-        margin: 0 0.2rem;
-        cursor: pointer;
-        opacity: 0.3;
-      }
-      
-      .thumbnail.is-active {
-        opacity: 1;
-        border: 2px solid #fa4454;
-      }
-      
-      .thumbnail img {
-        width: 100%;
-        height: auto;
-      }
-      .thumbnail {
-        opacity: 0.5; 
-      }
-      
-      .thumbnail.is-active {
-        opacity: 1;  
-      }
-}
