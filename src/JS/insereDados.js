@@ -88,6 +88,7 @@ function adicionarIconesPersonagens(dataAgentes){
         output += 
         `<li class="thumbnail" id="${personagemAtual.idAgente}">
               <img src="${personagemAtual.displayIcon}" alt="Icone selecionavel do personagem ${personagemAtual.nomeAgente} title="Icone selecionavel personagem ${personagemAtual.nomeAgente}">
+              <div class="div-Shadow"></div>
         </li>`;
     });
 
