@@ -154,7 +154,9 @@ footer{
         background: rgb(0,0,0);
         background: linear-gradient(0deg, rgba(0,0,0,0.6867121848739496) 0%, rgba(0,0,0,0) 51%);
     }
-
-
+    .nome-agentes-icones{
+        @include flex-box(flex,center,end);
+        padding: 5px;
+    }
 }
 

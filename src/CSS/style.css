@@ -165,4 +165,16 @@ footer .div-Shadow {
   background: rgb(0, 0, 0);
   background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.6867121849)), color-stop(51%, rgba(0, 0, 0, 0)));
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.6867121849) 0%, rgba(0, 0, 0, 0) 51%);
+}
+footer .nome-agentes-icones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  padding: 5px;
 }/*# sourceMappingURL=style.css.map */
