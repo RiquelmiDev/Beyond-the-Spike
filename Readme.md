@@ -7,6 +7,7 @@ Este projeto é uma página web dedicada aos agentes do jogo Valorant, com um de
 - HTML
 - CSS/SCSS
 - JavaScript
+- [Valorant API](https://valorant-api.com) 
 
 ## 📁 Estrutura do Projeto:
 
