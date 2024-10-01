@@ -1,12 +1,14 @@
 ## 🔮 Beyond the Spike 🔮
 
-Este projeto é uma página web dedicada aos agentes do jogo Valorant, com um design responsivo e um carrossel de de personagens para apresentar suas  suas habilidades. 
+<p>Este projeto é uma página web dedicada aos agentes do jogo Valorant, feita no intuito do aprendizado de ultilizações de APIs. Com um design responsivo e um carrossel de personagens com suas determinadas peculiaridades e informações.</p>
+<p>Beyond the Spike consome os dados de uma API de valorant, fazendo com que as imagens, Descrições, tudo seja dinamicamente implementado na pagina.</p>
 
 ## 🎨 Tecnologias Utilizadas:
 
 - HTML
 - CSS/SCSS
 - JavaScript
+- [Valorant API](https://valorant-api.com) 
 
 ## 📁 Estrutura do Projeto:
 
