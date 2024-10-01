@@ -1,151 +1,134 @@
-import apiResponse from "./API/API-Valorant.js";
-import initSplide from "./carrousel.js";
+import ValorantAPI from './API/API-Valorant.js'; // Importa a classe da API Valorant
+import initSplide from './carrousel.js'; // Importa a inicialização do carrossel (biblioteca Splide)
 
-apiResponse().then(agentes => {
-    if (agentes){
-
-        let dataAgentes = [];
-
-        agentes.forEach((agente,index) => {
-            dataAgentes.push({
-                idAgente: index,
-                nomeAgente: agente.displayName,
-                descricaoAgente: agente.description,
-                displayIcon : agente.displayIcon,
-                imgAgente: agente.fullPortrait,
-                killFeedIcon : agente.killfeedPortrait,
-                background: agente.background,
-                bgGradientColors: agente.backgroundGradientColors,
-                roleAgente: agente.role,
-                habilidades: agente.abilities
-            })
-        });
-        criarElementosDosPersonagens(dataAgentes);
+class ValorantUI {
+    constructor() {
+        this.dataAgentes = []; // Inicializa uma lista vazia para armazenar os dados dos agentes
     }
-});
 
+     // Método principal para inicializar a interface
+     async initialize() {
+        // Aguarda o carregamento completo do DOM
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Busca os dados dos agentes através da API
+            const agentes = await ValorantAPI.fetchAgents();
 
-function criarElementosDosPersonagens (dataAgentes) {
+            // Verifica se há dados de agentes
+            if (agentes && agentes.length) {
+                // Transforma os dados da API em um formato adequado para a interface
+                this.dataAgentes = agentes.map((agente, index) => ({
+                    idAgente: index,
+                    nomeAgente: agente.displayName,
+                    descricaoAgente: agente.description,
+                    displayIcon: agente.displayIcon,
+                    imgAgente: agente.fullPortrait,
+                    killFeedIcon: agente.killfeedPortrait,
+                    background: agente.background,
+                    bgGradientColors: agente.backgroundGradientColors,
+                    roleAgente: agente.role,
+                    habilidades: agente.abilities
+                }));
 
-    
-    adicionarImagensPersonagensAoCarrousel(dataAgentes);
-    
-    adicionarIconesPersonagens(dataAgentes);
-
-     // Adiciona um pequeno atraso para garantir que o DOM esteja atualizado
-     setTimeout(() => {
-        //Incia o cod responsavel pelo carrousel
-        initSplide();
-        carregarInfoPersonagem(dataAgentes);
-    }, 100); // 100ms de atraso, ajuste conforme necessário
-    
-    initSplide();
-}
-
-
-
-//Funcao responsavel por criar as tags li com as imagens de cada agente do valorant
-function adicionarImagensPersonagensAoCarrousel(dataAgentes){
-    //elemento ul que guarda as imagens
-    const listaPersonagens = document.getElementById("listaPersonagens");
-
-    let output= "";
-
-    // ideia repentina: achar uma forma de adicionar as li individualmente e logo apos chamar a funcao de add background mandando o background do elemento atual a cada iteracao dentro do for fazendo com que nao precisace de um for dentro da funcao de bg
-
-    dataAgentes.forEach(personagemAtual => {
-        output += 
-        `<li class="splide__slide">       
-            <img class="personagemImg backgroundPersonagem${personagemAtual.idAgente}" id="personagemImg${personagemAtual.idAgente}" src="${personagemAtual.imgAgente}" alt="Imagem do Personagem ${personagemAtual.nomeAgente}" title="Imagem do personagem ${personagemAtual.nomeAgente} do jogo Valorant"></li>`;
-    });
-
-   // Criar um elemento temporário para converter a string em nós do DOM
-   const tempContainer = document.createElement("div");
-   tempContainer.innerHTML = output;
-
-   // Adicionar os nós ao elemento da lista
-   while (tempContainer.firstChild) {
-       listaPersonagens.appendChild(tempContainer.firstChild);
-   }
-
-   //depois de inserir as li com as imagens no html ele insere o estilo que adiciona o background dos personagens no css
-   adicionaBackgroundDasImagens(dataAgentes);
-}
-
-function adicionaBackgroundDasImagens(dataAgentes){
-
-    dataAgentes.forEach(element => {
-    let imagemDeFundoPersonagem = document.querySelector(`.backgroundPersonagem${element.idAgente}`);
-        imagemDeFundoPersonagem.setAttribute('style', `background-image: url("${element.background}");background-repeat: no-repeat;background-size: contain; background-position:right`)
-    });
-}
-
-function adicionarIconesPersonagens(dataAgentes){
-    const listaDeIconesPersonagens = document.getElementById("thumbnails");
-    let output= "";
-
-    dataAgentes.forEach(personagemAtual => {
-        output += 
-        `<li class="thumbnail" id="${personagemAtual.idAgente}">
-              <img src="${personagemAtual.displayIcon}" alt="Icone selecionavel do personagem ${personagemAtual.nomeAgente} title="Icone selecionavel personagem ${personagemAtual.nomeAgente}">
-              <div class="div-Shadow nome-agentes-icones">${personagemAtual.nomeAgente}</div>
-        </li>`;
-    });
-
-   // Criar um elemento temporário para converter a string em nós do DOM
-   const tempContainer = document.createElement("div");
-   tempContainer.innerHTML = output;
-
-   // Adicionar os nós ao elemento da lista
-   while (tempContainer.firstChild) {
-    listaDeIconesPersonagens.appendChild(tempContainer.firstChild);
-   }
-}
-
-function carregarInfoPersonagem(dataAgentes){
-    //chama a funcao que insere os conteudos do personagem nos elementos e manda inicialmente o id do primeiro personagem sendo 0
-    inserirConteudoPersonagens(dataAgentes,0)
-
-    var splide = new Splide('#main-carousel', {
-        pagination: false,
-    });
-
-    splide.on('mounted', function () {
-        let icones = document.getElementsByClassName('thumbnail');
-
-        for (let i = 0; i < icones.length; i++) {
-            initThumbnail(icones[i]);
-        }
-
-        function initThumbnail(icone) {
-            //evento de click em cada icone dos personagens que faz inserir o conteudo deles nos elemento visuais
-            icone.addEventListener('click', function () {
-                let idPersonagem = this.id; //Pegue o id desse icone que foi clicado
-                inserirConteudoPersonagens(dataAgentes,idPersonagem);
-            });
-        }
-        //evento de move que observa quando o user passa o slide para o proximo personagem ou o anterior inserindo assim o conteudo desse personagem
-        splide.on('move', function () {
-            let icone = icones[splide.index]; //guarda o elemento atual do slide
-            console.log(icone)
-            if (icone) {
-                let idPersonagem = splide.index;
-                inserirConteudoPersonagens(dataAgentes,idPersonagem);
+                // Cria os elementos visuais com base nos dados processados
+                this.criarElementosDosPersonagens(this.dataAgentes);
+            } else {
+                console.error("Nenhum agente encontrado.");
             }
         });
-    });
+    }
 
-    splide.mount();
+    // Método responsável por criar os elementos HTML dos personagens
+    criarElementosDosPersonagens(dataAgentes) {
+        // Adiciona as imagens dos personagens no carrossel
+        this.adicionarImagensPersonagensAoCarrousel(dataAgentes);
+        // Adiciona os ícones dos personagens na seção de seleção
+        this.adicionarIconesPersonagens(dataAgentes);
+
+        // Adiciona um pequeno atraso para garantir que o DOM esteja atualizado antes de iniciar o carrossel e carregar os dados dos personagens
+        setTimeout(() => {
+            initSplide(); // Inicia o carrossel
+            this.carregarInfoPersonagem(dataAgentes); // Carrega as informações do personagem
+        }, 100); // Atraso de 100ms
+    }
+
+    // Método que insere as imagens dos personagens no carrossel
+    adicionarImagensPersonagensAoCarrousel(dataAgentes) {
+        const listaPersonagens = document.getElementById("listaPersonagens"); // Seleciona a lista de personagens no HTML
+
+        // Constrói o HTML de cada personagem, usando a função map para gerar uma lista de elementos <li>
+        let output = dataAgentes.map(personagemAtual => `
+            <li class="splide__slide">       
+                <img class="personagemImg backgroundPersonagem${personagemAtual.idAgente}" id="personagemImg${personagemAtual.idAgente}" src="${personagemAtual.imgAgente}" alt="Imagem do Personagem ${personagemAtual.nomeAgente}" title="Imagem do personagem ${personagemAtual.nomeAgente} do jogo Valorant">
+            </li>
+        `).join(''); // O join('') junta o array de strings gerado pelo map em uma única string
+
+        listaPersonagens.innerHTML = output; // Insere o HTML no elemento da lista
+        this.adicionaBackgroundDasImagens(dataAgentes); // Chama a função para adicionar o background dos personagens
+    }
+
+    // Método que adiciona o background para cada personagem
+    adicionaBackgroundDasImagens(dataAgentes) {
+        dataAgentes.forEach(element => {
+            // Seleciona a imagem de fundo do personagem e aplica o estilo de background
+            let imagemDeFundoPersonagem = document.querySelector(`.backgroundPersonagem${element.idAgente}`);
+            imagemDeFundoPersonagem.setAttribute('style', `background-image: url("${element.background}");background-repeat: no-repeat;background-size: contain; background-position:right`);
+        });
+    }
+
+    // Método que adiciona os ícones dos personagens na seção de thumbnails
+    adicionarIconesPersonagens(dataAgentes) {
+        const listaDeIconesPersonagens = document.getElementById("thumbnails"); // Seleciona o elemento que contém os ícones
+        // Constrói o HTML dos ícones usando map
+        let output = dataAgentes.map(personagemAtual => `
+            <li class="thumbnail" id="${personagemAtual.idAgente}">
+                <img src="${personagemAtual.displayIcon}" alt="Icone selecionável do personagem ${personagemAtual.nomeAgente}" title="Icone selecionável personagem ${personagemAtual.nomeAgente}">
+                <div class="div-Shadow nome-agentes-icones">${personagemAtual.nomeAgente}</div>
+            </li>
+        `).join('');
+
+        listaDeIconesPersonagens.innerHTML = output; // Insere o HTML no elemento da lista
+    }
+
+    // Método responsável por carregar as informações dos personagens
+    carregarInfoPersonagem(dataAgentes) {
+        // Inicialmente insere as informações do primeiro personagem (id 0)
+        this.inserirConteudoPersonagens(dataAgentes, 0);
+
+        // Inicializa o carrossel principal usando a biblioteca Splide
+        let splide = new Splide('#main-carousel', { pagination: false });
+        let icones = document.getElementsByClassName('thumbnail'); // Seleciona todos os ícones dos personagens
+
+        // Após o carrossel ser montado, adiciona eventos de clique aos ícones
+        splide.on('mounted', () => {
+            // Adiciona eventos de clique para cada ícone
+            [...icones].forEach(icone => {
+                icone.addEventListener('click', () => {
+                    this.inserirConteudoPersonagens(dataAgentes, icone.id); // Insere o conteúdo do personagem ao clicar no ícone
+                });
+            });
+
+            // Adiciona evento de mover para atualizar o conteúdo conforme o slide do carrossel muda
+            splide.on('move', () => {
+                this.inserirConteudoPersonagens(dataAgentes, splide.index); // Atualiza o conteúdo com base no índice do slide atual
+            });
+        });
+
+        splide.mount(); // Monta o carrossel na página
+    }
+
+    // Método que insere o conteúdo dos personagens nas respectivas áreas
+    inserirConteudoPersonagens(dataAgentes, idPersonagem) {
+        const descricao = document.getElementById("descricaoPersonagens"); // Seleciona o elemento para a descrição do personagem
+        const nomePersonagem = document.getElementById("nomePersonagem"); // Seleciona o elemento para o nome do personagem
+        const rolePersonagem = document.getElementById("rolePersonagem"); // Seleciona o elemento para o papel do personagem
+
+        // Insere os dados do personagem no HTML
+        nomePersonagem.textContent = dataAgentes[idPersonagem].nomeAgente;
+        descricao.textContent = dataAgentes[idPersonagem].descricaoAgente;
+        rolePersonagem.textContent = dataAgentes[idPersonagem].roleAgente.displayName;
+    }
 }
 
-function inserirConteudoPersonagens(dataAgentes,idPersonagem){
-    const descricao = document.getElementById("descricaoPersonagens");
-    const nomePersonagem = document.getElementById("nomePersonagem");
-    const rolePersonagem = document.getElementById("rolePersonagem");
-
-    nomePersonagem.textContent = dataAgentes[idPersonagem].nomeAgente;
-    descricao.textContent = dataAgentes[idPersonagem].descricaoAgente;
-    rolePersonagem.textContent = dataAgentes[idPersonagem].roleAgente.displayName;
-}
-
-
+// Inicializa a interface Valorant
+const valorantUI = new ValorantUI();
+valorantUI.initialize(); // Chama o método para inicializar a UI e carregar os dados dos personagens
